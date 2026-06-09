@@ -4,7 +4,7 @@ A free, open guide for learning Python and SQL for cloud data engineering.
 16 topics. Each one defines exactly what is enough, and gives you a prompt
 to learn it with any AI tutor (Claude, ChatGPT, Gemini).
 
-**Live guide → [your-username.github.io/python-for-de](https://mcnusair.github.io/python-for-de-ai-tutor)**
+**Live guide → [mcnusair.github.io/python-for-de-ai-tutor](https://mcnusair.github.io/python-for-de-ai-tutor)**
 
 ## What is inside
 
