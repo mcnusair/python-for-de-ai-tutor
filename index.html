@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="16 AI tutor prompts for learning Python and SQL for Data Engineering. Each prompt defines exactly what is enough and how to learn it with an AI tutor.">
+<title>Python for Data Engineering — AI Tutor Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f9fafb;
+  --surface:#ffffff;
+  --surface2:#f3f4f6;
+  --border:#e5e7eb;
+  --border2:#d1d5db;
+  --text:#111827;
+  --text2:#4b5563;
+  --text3:#9ca3af;
+  --mono:JetBrains Mono,monospace;
+  --sans:Inter,system-ui,sans-serif;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 6px rgba(0,0,0,.05),0 2px 4px rgba(0,0,0,.04);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f172a;
+    --surface:#1e293b;
+    --surface2:#0f172a;
+    --border:#334155;
+    --border2:#475569;
+    --text:#f1f5f9;
+    --text2:#94a3b8;
+    --text3:#475569;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;padding:0}
+
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:48px 24px 40px;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6366f1;background:#eef2ff;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.hero-eyebrow{background:#1e1b4b;color:#a5b4fc}}
+.hero h1{font-size:clamp(24px,4vw,38px);font-weight:600;color:var(--text);max-width:640px;margin:0 auto 12px;line-height:1.25;letter-spacing:-.02em}
+.hero p{font-size:15px;color:var(--text2);max-width:520px;margin:0 auto 28px}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:22px;font-weight:600;color:var(--text)}
+.hero-stat-lbl{font-size:12px;color:var(--text3);margin-top:1px}
+.hero-divider{width:1px;height:32px;background:var(--border)}
+
+.progress-bar{height:3px;background:linear-gradient(90deg,#6366f1,#8b5cf6,#06b6d4);position:fixed;top:0;left:0;z-index:100;transition:width .3s ease;border-radius:0 2px 2px 0}
+
+.content{max-width:760px;margin:0 auto;padding:32px 20px 80px}
+
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;align-items:center}
+.filter-lbl{font-size:12px;font-weight:500;color:var(--text3);margin-right:4px}
+.filter-btn{padding:5px 13px;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:20px;background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
+.filter-btn:hover{border-color:var(--border2);color:var(--text)}
+.filter-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
+
+.section-header{display:flex;align-items:center;gap:12px;margin:32px 0 14px}
+.section-line{flex:1;height:1px;background:var(--border)}
+.section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);white-space:nowrap}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
+.card:hover{box-shadow:var(--shadow-md);border-color:var(--border2)}
+.card.completed{border-left:3px solid #10b981}
+
+.card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;transition:background .12s}
+.card-head:hover{background:var(--surface2)}
+.card-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+
+.num-badge{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.card-title{font-size:14px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-pills{display:flex;gap:5px;margin-left:8px;flex-shrink:0}
+.pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.pill-cat{background:var(--surface2);color:var(--text3);border:1px solid var(--border)}
+.done-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;cursor:pointer}
+.done-check.checked{background:#10b981;border-color:#10b981}
+.done-check svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
+.done-check.checked svg{opacity:1}
+.chev{width:16px;height:16px;flex-shrink:0;color:var(--text3);transition:transform .2s}
+.chev.open{transform:rotate(180deg)}
+
+.card-body{display:none;border-top:1px solid var(--border)}
+.card-body.open{display:block}
+
+.card-inner{padding:16px 16px 0}
+.sec-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.enough-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:16px}
+@media(max-width:540px){.enough-grid{grid-template-columns:1fr}}
+.enough-item{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--text2);line-height:1.45;padding:6px 9px;background:var(--surface2);border-radius:6px}
+.check-icon{width:16px;height:16px;flex-shrink:0;margin-top:1px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.check-icon svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+.prompt-section{padding:0 16px 16px}
+.prompt-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.prompt-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)}
+.prompt-actions{display:flex;gap:6px}
+.action-btn{padding:5px 12px;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s}
+.action-btn:hover{background:var(--surface2);border-color:var(--border2);color:var(--text)}
+.action-btn.primary{background:#6366f1;border-color:#6366f1;color:#fff}
+.action-btn.primary:hover{background:#4f46e5;border-color:#4f46e5}
+.action-btn.ok{background:#10b981;border-color:#10b981;color:#fff}
+.action-btn svg{width:13px;height:13px;flex-shrink:0}
+
+.prompt-box{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.7;color:#e2e8f0;white-space:pre-wrap;max-height:320px;overflow-y:auto;position:relative}
+@media(prefers-color-scheme:dark){.prompt-box{background:#020617;border-color:#0f172a}}
+.prompt-box::-webkit-scrollbar{width:4px}
+.prompt-box::-webkit-scrollbar-track{background:transparent}
+.prompt-box::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
+
+.highlight-rule{color:#7dd3fc}
+.highlight-num{color:#a78bfa}
+.highlight-bold{color:#fde68a;font-weight:500}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:#111827;color:#f9fafb;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;pointer-events:none;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.3);white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px}
+.footer p{font-size:13px;color:var(--text3)}
+.footer a{color:#6366f1;text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+.progress-summary{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.prog-label{font-size:13px;color:var(--text2);flex:1}
+.prog-label strong{color:var(--text)}
+.prog-track{flex:2;min-width:120px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:3px;transition:width .4s ease}
+.prog-pct{font-size:13px;font-weight:600;color:#6366f1;min-width:36px;text-align:right}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="readingBar"></div>
+
+<div class="hero">
+  <div class="hero-eyebrow">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    Python for Data Engineering
+  </div>
+  <h1>The AI Tutor Guide</h1>
+  <p>16 topics. Each one defines exactly what is enough for a cloud data engineer — and gives you a prompt to learn it with any AI tutor.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">16</div><div class="hero-stat-lbl">Topics</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat"><div class="hero-stat-num">~40h</div><div class="hero-stat-lbl">Total study time</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat"><div class="hero-stat-num">0</div><div class="hero-stat-lbl">Fluff</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="progress-summary">
+    <div class="prog-label">Progress — <strong id="doneCount">0 of 16</strong> topics completed</div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-pct" id="progPct">0%</div>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-lbl">Filter:</span>
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('python',this)">Python</button>
+    <button class="filter-btn" onclick="filter('sql',this)">SQL</button>
+    <button class="filter-btn" onclick="filter('tools',this)">Tools</button>
+    <button class="filter-btn" onclick="filter('todo',this)">Not done</button>
+  </div>
+
+  <div id="cards"></div>
+
+</div>
+
+<div class="footer">
+  <p>Built for engineers who want to learn exactly what they need at the beginning<br>
+   Share freely · <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TOPICS = [
+  {
+    n:1,topic:"Functions, loops & conditionals",cat:"python",
+    color:"#6366f1",bg:"#eef2ff",tc:"#3730a3",
+    enough:[
+      "Write a function with parameters, return value, and docstring",
+      "Use *args and **kwargs for flexible inputs",
+      "for and while loops with break and continue",
+      "List comprehensions to replace simple for-loops",
+      "Nested if/elif/else logic without confusion",
+      "No recursion, generators, or decorators needed for DE"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning Python for data engineering, not software engineering. I understand the basic concepts but cannot produce them reliably from scratch yet.
+
+Teach me exactly this and nothing more:
+- Functions with parameters, default values, *args, **kwargs, and return values
+- for loops, while loops, break, continue, and list comprehensions
+- if / elif / else logic including nested conditions
+
+Rules for this session:
+1. Use data engineering examples only — reading files, processing records, transforming data. Never use abstract examples like fibonacci or sorting.
+2. After explaining each concept, give me a small exercise to write myself. Wait for my attempt before showing the answer.
+3. If I make a mistake, tell me exactly what is wrong and why, then ask me to fix it myself.
+4. When I complete an exercise correctly, immediately move to the next concept.
+5. At the end, give me one combined exercise that uses functions, loops, and conditionals together on a realistic DE scenario.
+
+Do not cover recursion, generators, decorators, or any OOP. If I ask about those, redirect me.
+
+Start by asking me to write a function that takes a list of numbers and returns only the ones above a threshold I pass in. Wait for my attempt.`
+  },
+  {
+    n:2,topic:"Exception handling",cat:"python",
+    color:"#8b5cf6",bg:"#f5f3ff",tc:"#4c1d95",
+    enough:[
+      "Catch specific exception types — never bare except:",
+      "Use finally for cleanup that must always run",
+      "Raise a custom exception with a meaningful message",
+      "Wrap every external call in try/except",
+      "Log exceptions with logger.exception() — never print",
+      "Know the difference between Exception and BaseException"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning Python exception handling specifically for writing production data pipelines, not general software.
+
+Teach me exactly this and nothing more:
+- Catching specific exception types (FileNotFoundError, requests.HTTPError, ValueError etc.) — never bare except
+- The try / except / else / finally pattern and when each block runs
+- Raising exceptions with raise and creating a simple custom exception class
+- Wrapping external calls (API requests, file reads, database writes) with proper exception handling
+- Logging exceptions with the logging module instead of printing them
+
+Rules for this session:
+1. Every example must be a realistic pipeline scenario: reading a CSV, calling an API, writing to S3.
+2. After each concept, give me an exercise. Wait for my attempt before showing the answer.
+3. Tell me exactly what is wrong with my code and why. Ask me to fix it myself.
+4. When I complete an exercise, move immediately to the next concept.
+5. Final exercise: write a function that reads a JSON file, parses it, and handles FileNotFoundError, JSONDecodeError, and a generic Exception — each with a different log message and behaviour.
+
+Do not teach me exception chaining, context managers, or advanced traceback manipulation. Redirect me if I ask.
+
+Start by showing me a bad example — a bare except that swallows all errors — and asking me to fix it. Wait for my answer.`
+  },
+  {
+    n:3,topic:"File I/O — CSV, JSON, Parquet",cat:"python",
+    color:"#0891b2",bg:"#ecfeff",tc:"#164e63",
+    enough:[
+      "Read and write CSV with the csv module and pandas",
+      "Read and write JSON with the json module",
+      "Read and write Parquet with pandas + pyarrow",
+      "Use pathlib.Path instead of string paths",
+      "Always open files with a context manager",
+      "Know why Parquet is preferred over CSV for DE"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning Python file I/O specifically for data engineering pipelines.
+
+Teach me exactly this and nothing more:
+- Reading and writing CSV files using both the csv module and pandas
+- Reading and writing JSON files using the json module
+- Reading and writing Parquet files using pandas with pyarrow
+- Using pathlib.Path for all file paths instead of string concatenation
+- Using context managers (with open(...)) for all file operations
+- Why Parquet is the preferred format for DE over CSV — compression, schema, columnar reads
+
+Rules for this session:
+1. All examples use realistic DE data — trip records, weather readings, sales transactions. No toy examples.
+2. After each concept, give me an exercise. Wait for my attempt before showing the answer.
+3. Tell me exactly what is wrong with my code and why. Ask me to fix it myself.
+4. Move immediately to the next concept after a correct answer.
+5. Final exercise: write a function that reads a CSV file, cleans one column, and writes the result to Parquet. Handle FileNotFoundError and schema mismatches.
+
+Do not teach me pickle, HDF5, XML parsing, or binary file handling. Redirect me if I ask.
+
+Start by asking me to write a function that reads a CSV file using pathlib and returns a list of dictionaries. Wait for my attempt.`
+  },
+  {
+    n:4,topic:"OOP — just enough for DE",cat:"python",
+    color:"#059669",bg:"#ecfdf5",tc:"#064e3b",
+    enough:[
+      "Write a class with __init__, attributes, and methods",
+      "Understand self and why it exists",
+      "Write one class that wraps an API client",
+      "Instantiate the class and call its methods",
+      "No inheritance, abstract classes, or design patterns",
+      "A DE writes at most 1–2 simple classes per project"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning the minimum OOP needed for data engineering. I do not need to become a software engineer.
+
+Teach me exactly this and nothing more:
+- What a class is and why you would use one in a pipeline (wrapping an API client, encapsulating config)
+- Writing __init__ with instance attributes
+- Writing instance methods that use self
+- Instantiating a class and calling its methods
+- One realistic example: a class that wraps an HTTP API call
+
+Rules for this session:
+1. Every example must be a pipeline class — an API client, a file reader, a database connector. Never abstract shapes or animals.
+2. After explaining, give me one exercise. Wait for my attempt.
+3. Tell me exactly what is wrong and why. Ask me to fix it.
+4. Move immediately after a correct answer.
+5. Final exercise: write a WeatherAPIClient class with __init__ taking a base_url and city, and a get_forecast() method that calls the API and returns parsed JSON. Include error handling.
+
+Do not teach me inheritance, class methods, static methods, properties, abstract classes, dataclasses, or design patterns. If I ask, tell me I do not need them for DE and redirect.
+
+Start by asking me why I might put API logic inside a class instead of a bare function. Wait for my answer.`
+  },
+  {
+    n:5,topic:"Logging — never use print()",cat:"python",
+    color:"#d97706",bg:"#fffbeb",tc:"#78350f",
+    enough:[
+      "Set up a logger with logging.getLogger(__name__)",
+      "Know all five log levels: DEBUG INFO WARNING ERROR CRITICAL",
+      "Configure FileHandler and StreamHandler together",
+      "Log exceptions with logger.exception() in except blocks",
+      "Never use print() in production code — ever",
+      "Set log level from an environment variable"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning Python logging for production data pipelines. I currently use print() everywhere and need to stop.
+
+Teach me exactly this and nothing more:
+- Setting up a logger using logging.getLogger(__name__)
+- The five log levels (DEBUG, INFO, WARNING, ERROR, CRITICAL) and when to use each
+- Adding both a FileHandler (writes to a log file) and a StreamHandler (prints to console) to the same logger
+- Using logger.exception() inside except blocks to capture the full traceback
+- Setting the log level dynamically from an environment variable using os.getenv()
+- Why __name__ matters as the logger name in a multi-module project
+
+Rules for this session:
+1. Every example must be a pipeline scenario: extracting data, calling an API, writing files.
+2. After each concept, give me an exercise. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it myself.
+4. Move immediately after a correct answer.
+5. Final exercise: set up a complete logger for a pipeline script that logs to both console and a file, uses __name__, reads log level from an env var, and logs an exception with full traceback when a file is not found.
+
+Do not teach me logging filters, logging.config, RotatingFileHandler, or structured JSON logging. Redirect me if I ask.
+
+Start by showing me a pipeline function that uses print() for everything and asking me to rewrite it with proper logging. Wait for my attempt.`
+  },
+  {
+    n:6,topic:"Virtual environments & project structure",cat:"tools",
+    color:"#dc2626",bg:"#fef2f2",tc:"#7f1d1d",
+    enough:[
+      "Create a venv, activate it, install packages into it",
+      "Understand why venv exists — dependency isolation",
+      "Generate and use requirements.txt with pip freeze",
+      "Know the standard DE project folder structure",
+      "Put .venv and .env in .gitignore — always",
+      "Never install packages globally"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning virtual environments and project structure for Python data engineering projects.
+
+Teach me exactly this and nothing more:
+- What a virtual environment is and why it exists (dependency isolation)
+- Creating a venv with python3 -m venv .venv and activating it on Windows/Mac/Linux
+- Installing packages with pip and generating requirements.txt with pip freeze
+- Installing from requirements.txt with pip install -r requirements.txt
+- The standard folder structure for a DE Python project (src/, tests/, .env, .gitignore, requirements.txt, README.md)
+- What must always be in .gitignore: .venv/, .env, __pycache__, *.pyc
+
+Rules for this session:
+1. Be practical and command-line focused. Show exact commands I run in my terminal.
+2. After each concept, give me a task to do in my actual terminal. Wait for me to confirm I did it.
+3. If something goes wrong, help me debug the exact error message.
+4. Final task: create a new project folder from scratch with the correct structure, a venv, a requirements.txt with duckdb and pandas, and a .gitignore with all the right entries.
+
+Do not teach me conda, poetry, pipenv, pyenv, or Docker at this stage. Redirect me if I ask.
+
+Start by asking me to open a terminal, create a folder called pipeline-practice, and tell you what happens when I try to run python3 --version. Wait for my answer.`
+  },
+  {
+    n:7,topic:"Secrets & environment variables",cat:"python",
+    color:"#7c3aed",bg:"#f5f3ff",tc:"#2e1065",
+    enough:[
+      "Never hardcode credentials or API keys in code",
+      "Create a .env file with key=value pairs",
+      "Load it with python-dotenv at the top of your script",
+      "Read values with os.getenv('KEY') with a sensible default",
+      "Always add .env to .gitignore before the first commit",
+      "Know how to pass secrets as env vars in CI/CD"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning how to handle secrets and environment variables in Python data pipelines. I currently hardcode API keys and passwords directly in my code and need to stop.
+
+Teach me exactly this and nothing more:
+- Why hardcoding credentials is dangerous (git history, shared repos, logs)
+- Creating a .env file with key=value pairs for API keys, URLs, and config
+- Installing python-dotenv and loading the .env file with load_dotenv()
+- Reading values with os.getenv('KEY') and providing sensible defaults
+- Adding .env to .gitignore before any commits
+- How environment variables work in a CI/CD pipeline (set in GitHub Actions secrets, not in a .env file)
+
+Rules for this session:
+1. Use realistic DE examples: AWS credentials, API keys, database URLs, S3 bucket names.
+2. After each concept, give me an exercise. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it myself.
+4. Final exercise: take a pipeline script that has hardcoded AWS credentials and API keys and refactor it to use a .env file with dotenv. Show me what the .env file looks like and what the refactored Python looks like.
+
+Do not teach me secrets managers (AWS Secrets Manager, HashiCorp Vault) or encryption at rest at this stage. Redirect me.
+
+Start by showing me a short Python script with a hardcoded API key and asking me to identify all the problems with it. Wait for my answer.`
+  },
+  {
+    n:8,topic:"Modules & packages",cat:"python",
+    color:"#0284c7",bg:"#f0f9ff",tc:"#0c4a6e",
+    enough:[
+      "Split code across files — one responsibility per file",
+      "Import functions from other files in the same project",
+      "Understand what __init__.py does (and when it is empty)",
+      "Use relative imports within a package",
+      "Know the standard src/ layout for a DE project",
+      "Never put all code in one giant script"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning how to structure Python projects across multiple files and folders. Currently I put all my code in one script and need to learn proper project structure.
+
+Teach me exactly this and nothing more:
+- Why splitting code into modules matters for maintainability and testing
+- How Python finds modules — the import system basics
+- How to import a function from another file in the same project
+- What __init__.py does and when to leave it empty
+- Relative imports using from .module import function within a package
+- The standard layout for a DE project: src/extractor.py, src/transformer.py, src/loader.py, src/pipeline.py, tests/
+
+Rules for this session:
+1. Use a concrete DE project as the running example: a pipeline with extract, transform, load steps split across files.
+2. After each concept, give me an exercise where I restructure some code. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: take a single-file pipeline script I paste to you and tell me how to split it into the correct module structure. I will do the splitting and show you the result.
+
+Do not teach me setuptools, pyproject.toml, publishing packages to PyPI, or namespace packages. Redirect me.
+
+Start by showing me a 30-line pipeline script where everything is in one file and asking me how I would split it into separate modules. Wait for my answer.`
+  },
+  {
+    n:9,topic:"Type hints",cat:"python",
+    color:"#059669",bg:"#ecfdf5",tc:"#064e3b",
+    enough:[
+      "Annotate every function parameter and return type",
+      "Use built-in types: str, int, float, bool, list, dict",
+      "Use Optional[X] for values that can be None",
+      "Use list[str] and dict[str, int] — Python 3.9+ style",
+      "Run mypy to catch type errors before runtime",
+      "No TypeVar, Protocol, or Generic needed for DE"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning type hints in Python for data engineering code. I want to write more readable, less error-prone pipeline code.
+
+Teach me exactly this and nothing more:
+- Basic type annotations for function parameters and return values
+- Built-in types: str, int, float, bool, list, dict, tuple
+- Optional[X] from the typing module for values that can be None
+- list[str] and dict[str, int] syntax (Python 3.9+ style)
+- How to run mypy to check types statically before running code
+- Why type hints matter in a DE context: catching schema mismatches, documenting data shapes
+
+Rules for this session:
+1. Use realistic DE function signatures: functions that process rows, call APIs, return DataFrames.
+2. After each concept, give me an unannotated function and ask me to add the correct type hints. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: annotate a complete extractor module with five functions — all parameters, return types, and Optional values correctly typed.
+
+Do not teach me TypeVar, Generic, Protocol, Literal, TypedDict, or mypy configuration files at this stage. Redirect me.
+
+Start by showing me a function with no type hints and asking me to add them. Wait for my attempt.`
+  },
+  {
+    n:10,topic:"Unit testing with pytest",cat:"python",
+    color:"#db2777",bg:"#fdf2f8",tc:"#701a75",
+    enough:[
+      "Write a test function that asserts the expected output",
+      "Use pytest.raises to test that errors are raised correctly",
+      "Mock an external API call with unittest.mock.patch",
+      "Run pytest from the terminal and read the output",
+      "Write 5–10 tests per module — that is production-level",
+      "No coverage config, fixtures beyond basics, or parametrize yet"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning pytest for testing data pipeline code. I have never written a test before and do not know where to start.
+
+Teach me exactly this and nothing more:
+- Writing a basic test function that calls a pipeline function and uses assert
+- Using pytest.raises to test that my error handling raises the right exception
+- Mocking an external API call with unittest.mock.patch so tests do not hit the real API
+- Mocking a file read so tests do not depend on files existing on disk
+- Running pytest from the terminal and reading the pass/fail output
+- Where to put test files: tests/ folder, files named test_*.py, functions named test_*
+
+Rules for this session:
+1. Use a realistic DE module as the subject: a function that calls an API and returns parsed JSON, a function that reads a CSV and returns cleaned rows.
+2. After each concept, give me a function and ask me to write a test for it. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: given a complete extractor.py module I paste to you, write a full test file covering the happy path, the error path, and a mocked API call.
+
+Do not teach me pytest fixtures beyond the basics, parametrize, conftest.py, coverage reports, or property-based testing. Redirect me.
+
+Start by showing me a simple function that parses a JSON response and asking me to write my first test for it. Wait for my attempt.`
+  },
+  {
+    n:11,topic:"pandas — just enough for DE",cat:"python",
+    color:"#0891b2",bg:"#ecfeff",tc:"#164e63",
+    enough:[
+      "Read CSV, JSON, and Parquet files into a DataFrame",
+      "Filter rows, select columns, rename, drop nulls",
+      "groupby + agg for simple summaries",
+      "merge two DataFrames — inner, left, outer",
+      "Write a DataFrame to Parquet",
+      "pandas is local — Spark handles large scale"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning pandas for data engineering, not data science. I need just enough pandas to do local data wrangling before data gets to a cloud pipeline.
+
+Teach me exactly this and nothing more:
+- Reading CSV, JSON, and Parquet files with pd.read_csv, pd.read_json, pd.read_parquet
+- Filtering rows with boolean conditions
+- Selecting and renaming columns
+- Dropping null values and filling nulls with a default
+- groupby with agg for simple aggregations (sum, mean, count)
+- Merging two DataFrames with pd.merge (inner, left, outer)
+- Writing a DataFrame to Parquet with to_parquet
+
+Rules for this session:
+1. Use realistic DE data throughout: taxi trips, weather readings, transaction records.
+2. After each operation, give me an exercise on a sample DataFrame. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: given a raw CSV of taxi trips with nulls, wrong column names, and mixed types — clean it, aggregate it by day, join it to a lookup table, and write the result to Parquet.
+
+Do not teach me pivot tables, apply with lambda, multi-index, plotting, or time series resampling at this stage. Redirect me.
+
+Start by asking me to load a sample DataFrame from a dict and show me what it looks like with df.head(). Wait for my attempt.`
+  },
+  {
+    n:12,topic:"requests — calling APIs",cat:"python",
+    color:"#ea580c",bg:"#fff7ed",tc:"#7c2d12",
+    enough:[
+      "Make GET and POST requests with requests.get() and .post()",
+      "Pass headers, query params, and a JSON body",
+      "Check status_code and use raise_for_status()",
+      "Parse the JSON response with response.json()",
+      "Handle ConnectionError and Timeout with try/except",
+      "Use a Session object for multiple calls to the same API"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning the requests library for calling APIs in data pipelines.
+
+Teach me exactly this and nothing more:
+- Making GET requests with requests.get() and passing query parameters
+- Making POST requests with a JSON body using requests.post()
+- Setting headers including Authorization headers for API keys
+- Checking response.status_code and using raise_for_status() to auto-raise on errors
+- Parsing the JSON response body with response.json()
+- Handling requests.exceptions.ConnectionError, Timeout, and HTTPError with try/except
+- Using requests.Session() for multiple calls to the same API (connection reuse)
+
+Rules for this session:
+1. Use real free public APIs throughout: Open-Meteo for weather, CoinGecko for crypto prices. No fake examples.
+2. After each concept, give me an exercise where I write actual API code. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: write an APIClient class that wraps the Open-Meteo weather API, handles all errors, uses a session, logs every request, and reads the base URL from a .env file.
+
+Do not teach me OAuth2 flows, async requests, or websockets at this stage. Redirect me.
+
+Start by asking me to make a GET request to https://api.open-meteo.com/v1/forecast?latitude=48.85&longitude=2.35&daily=temperature_2m_max&timezone=Europe/Paris and print the status code and first key in the response. Wait for my attempt.`
+  },
+  {
+    n:13,topic:"DuckDB — local SQL on real files",cat:"sql",
+    color:"#d97706",bg:"#fffbeb",tc:"#78350f",
+    enough:[
+      "Connect to DuckDB in-memory with duckdb.connect()",
+      "Query Parquet or CSV files directly — FROM 'file.parquet'",
+      "Run window functions, CTEs, GROUP BY on local files",
+      "Use EXPLAIN ANALYZE to profile a query",
+      "Query S3 files directly without downloading",
+      "Know when DuckDB beats pandas — files over ~100MB"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning DuckDB for running fast analytical SQL on local and cloud files without a database server.
+
+Teach me exactly this and nothing more:
+- Connecting to DuckDB in-memory with duckdb.connect()
+- Querying a local Parquet file directly: SELECT * FROM 'file.parquet'
+- Running GROUP BY, window functions (ROW_NUMBER, SUM OVER, LAG), and CTEs on local files
+- Using EXPLAIN ANALYZE to see how DuckDB executes a query
+- Installing the httpfs extension and querying S3 Parquet files without downloading them
+- When DuckDB is better than pandas: files over ~100MB, SQL-style aggregations, multi-file queries
+
+Rules for this session:
+1. Use the NYC taxi Parquet dataset throughout: https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-01.parquet
+2. After each concept, give me a SQL query exercise. Wait for my attempt.
+3. Tell me exactly what is wrong and ask me to fix it.
+4. Final exercise: write a DuckDB query on the taxi dataset that calculates each vendor's running total fare per day using a window function, and show me the EXPLAIN ANALYZE output.
+
+Do not teach me DuckDB persistence mode, extensions beyond httpfs, or DuckDB as a production database. Redirect me.
+
+Start by asking me to connect to DuckDB, download the taxi Parquet file, and run a COUNT(*) query on it. Wait for my attempt.`
+  },
+  {
+    n:14,topic:"Advanced SQL — window functions, regex, CTEs",cat:"sql",
+    color:"#6366f1",bg:"#eef2ff",tc:"#312e81",
+    enough:[
+      "ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, SUM OVER PARTITION BY",
+      "Understand when RANK produces ties vs DENSE_RANK",
+      "CTE chains — when to use vs subqueries",
+      "REGEXP_EXTRACT, REGEXP_REPLACE, REGEXP_LIKE on real data",
+      "PIVOT: transpose rows to columns on a known set of values",
+      "EXPLAIN ANALYZE on every non-trivial query — always"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning advanced SQL for data engineering technical interviews and production pipelines. I know basic SQL well. I need to go deep on window functions, CTEs, regex, and pivots on real data.
+
+Teach me exactly this and nothing more, in this order:
+1. Window functions: ROW_NUMBER, RANK, DENSE_RANK — differences on tied values
+2. Aggregate window functions: SUM, AVG, COUNT with OVER (PARTITION BY ... ORDER BY ...)
+3. LAG and LEAD for comparing a row to adjacent rows
+4. CTE chains: when to use a CTE vs a subquery, how to chain multiple CTEs
+5. REGEXP_EXTRACT, REGEXP_REPLACE, REGEXP_LIKE for string pattern matching
+6. PIVOT: transpose known row values into columns
+7. EXPLAIN ANALYZE: reading a query plan to understand performance
+
+Rules for this session:
+1. Use only the NYC taxi Parquet dataset throughout (local DuckDB). Real 3-million-row data.
+2. After each concept, give me a query exercise. Wait for my attempt before showing the answer.
+3. Tell me exactly what is wrong and ask me to fix it myself.
+4. After every query I write, ask me to run EXPLAIN ANALYZE and describe what I see.
+5. Final exercise: write a single query using at least three window functions, a CTE chain, and a regex filter on the taxi data. Profile it with EXPLAIN ANALYZE.
+
+Do not teach me recursive CTEs, UNPIVOT, JSON functions, or geospatial SQL at this stage. Redirect me.
+
+Start by asking me to write a query that ranks the top 5 pickup locations by total fare amount in the taxi dataset using a window function. Wait for my attempt.`
+  },
+  {
+    n:15,topic:"Git — daily DE habits",cat:"tools",
+    color:"#f97316",bg:"#fff7ed",tc:"#7c2d12",
+    enough:[
+      "git init, add, commit with a meaningful message",
+      "git branch, checkout, merge — one branch per feature",
+      "git push to GitHub and open a pull request",
+      "git pull and resolve a simple merge conflict",
+      ".gitignore that always includes .env and .venv",
+      "Commit after every working change — not end of day"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning Git for daily data engineering work. I understand the concept but do not use it consistently and cannot do it from memory.
+
+Teach me exactly this and nothing more, using my actual terminal throughout:
+- git init a new project and make the first commit
+- git add with staging individual files vs all files
+- Writing meaningful commit messages for pipeline code
+- git branch and git checkout to create and switch branches
+- git merge to bring a feature branch back into main
+- git push to a GitHub remote and how to set up the remote
+- Opening a pull request on GitHub
+- git pull to get changes from a remote
+- Resolving a simple merge conflict
+- The .gitignore entries that must always be in a DE project
+
+Rules for this session:
+1. Every step I actually do in my real terminal and GitHub. Hands-on, not theoretical.
+2. After each concept, give me a terminal command to run. Wait for me to confirm the output.
+3. If something goes wrong, help me debug the exact error.
+4. Final task: create a new GitHub repo for the weather pipeline project, push the first commit with a proper .gitignore, create a feature branch, make a change, and open a pull request.
+
+Do not teach me git rebase, git stash, git cherry-pick, or CI/CD integration at this stage. Redirect me.
+
+Start by asking me to open my terminal, navigate to my weather-pipeline folder, and run git status. Wait for me to tell you the output.`
+  },
+  {
+    n:16,topic:"Bash & command line",cat:"tools",
+    color:"#16a34a",bg:"#f0fdf4",tc:"#14532d",
+    enough:[
+      "Navigate: cd, ls, pwd, mkdir, rm -rf, cp, mv",
+      "Find files: find . -name '*.parquet' and grep in files",
+      "Pipe commands: cat file | grep 'error' | wc -l",
+      "Set and read environment variables in a shell session",
+      "Write a cron job to schedule a Python script",
+      "Read a command's man page when you forget the flags"
+    ],
+    prompt:`You are a senior data engineer acting as my personal tutor. I am learning bash and the command line for daily data engineering work on Linux/WSL2.
+
+Teach me exactly this and nothing more, using my actual terminal throughout:
+- Navigation: cd, ls -la, pwd, mkdir -p, rm -rf, cp, mv
+- Finding files: find . -name pattern, find . -type f -size +100M
+- Searching inside files: grep pattern file, grep -r pattern directory
+- Piping: combining commands with | to process output step by step
+- Redirecting output: > to overwrite, >> to append, 2>&1 for errors
+- Environment variables: export KEY=value, reading with $KEY, setting in .bashrc
+- Scheduling with cron: crontab -e syntax, running a Python script daily
+- Reading documentation: man command and command --help
+
+Rules for this session:
+1. Every command I actually run in my WSL2 Ubuntu terminal. Hands-on, not theoretical.
+2. After each concept, give me a command to run. Wait for me to tell you the output.
+3. If something fails, help me debug the exact error message.
+4. Final task: write a cron job that runs my weather pipeline Python script every day at 8am, redirects stdout to a log file, and redirects stderr to a separate error log.
+
+Do not teach me bash scripting, awk, sed beyond basics, or shell functions. Redirect me.
+
+Start by asking me to open my Ubuntu terminal, run ls -la in my home directory, and tell you what I see. Wait for my answer.`
+  }
+];
+
+const CATS = { python:"Python", sql:"SQL", tools:"Tools" };
+const CAT_COLORS = { python:"#6366f1", sql:"#0891b2", tools:"#16a34a" };
+const CAT_BGS = { python:"#eef2ff", sql:"#ecfeff", tools:"#f0fdf4" };
+const CAT_TCS = { python:"#312e81", sql:"#164e63", tools:"#14532d" };
+
+let completed = JSON.parse(localStorage.getItem('pyDE_done') || '{}');
+let currentFilter = 'all';
+
+function save() { localStorage.setItem('pyDE_done', JSON.stringify(completed)); }
+
+function updateProgress() {
+  const total = TOPICS.length;
+  const done = Object.values(completed).filter(Boolean).length;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('doneCount').textContent = done + ' of ' + total;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progPct').textContent = pct + '%';
+}
+
+function toggleDone(n, e) {
+  e.stopPropagation();
+  completed[n] = !completed[n];
+  save();
+  const check = document.getElementById('check_' + n);
+  const card = document.getElementById('card_' + n);
+  check.classList.toggle('checked', completed[n]);
+  card.classList.toggle('completed', completed[n]);
+  updateProgress();
+  applyFilter(currentFilter);
+}
+
+function toggleCard(n) {
+  const body = document.getElementById('cbody_' + n);
+  const chev = document.getElementById('cchev_' + n);
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.card-body.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.chev.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) {
+    body.classList.add('open');
+    chev.classList.add('open');
+  }
+}
+
+function copyPrompt(n, btn) {
+  const topic = TOPICS.find(t => t.n === n);
+  navigator.clipboard.writeText(topic.prompt).then(() => {
+    btn.classList.add('ok');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+    showToast('Prompt copied — paste into any AI tutor');
+    setTimeout(() => {
+      btn.classList.remove('ok');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy prompt';
+    }, 2200);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function filter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter(cat);
+}
+
+function applyFilter(cat) {
+  TOPICS.forEach(t => {
+    const card = document.getElementById('card_' + t.n);
+    if (!card) return;
+    let show = true;
+    if (cat === 'todo') show = !completed[t.n];
+    else if (cat !== 'all') show = t.cat === cat;
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+function buildCards() {
+  const container = document.getElementById('cards');
+  const sections = { python: [], sql: [], tools: [] };
+  TOPICS.forEach(t => sections[t.cat].push(t));
+
+  Object.entries(sections).forEach(([cat, topics]) => {
+    const secEl = document.createElement('div');
+    secEl.className = 'section-header';
+    secEl.innerHTML = `<div class="section-line"></div><div class="section-title" style="color:${CAT_COLORS[cat]}">${CATS[cat]}</div><div class="section-line"></div>`;
+    secEl.dataset.cat = cat;
+    container.appendChild(secEl);
+
+    topics.forEach(t => {
+      const isDone = !!completed[t.n];
+      const card = document.createElement('div');
+      card.className = 'card' + (isDone ? ' completed' : '');
+      card.id = 'card_' + t.n;
+      card.dataset.cat = t.cat;
+
+      const enoughHtml = t.enough.map(e => `
+        <div class="enough-item">
+          <div class="check-icon" style="background:${t.bg};color:${t.color}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span>${e}</span>
+        </div>`).join('');
+
+      const promptEscaped = t.prompt
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/(Rules for this session:|Teach me exactly this and nothing more[,:]?|Do not teach me)/g, '<span class="highlight-rule">$1</span>')
+        .replace(/(\d+\.\s)/g, '<span class="highlight-num">$1</span>');
+
+      card.innerHTML = `
+        <div class="card-head" onclick="toggleCard(${t.n})">
+          <div class="card-left">
+            <div class="num-badge" style="background:${t.bg};color:${t.tc}">${String(t.n).padStart(2,'0')}</div>
+            <div class="card-title">${t.topic}</div>
+            <div class="card-pills">
+              <span class="pill pill-cat" style="background:${CAT_BGS[t.cat]};color:${CAT_TCS[t.cat]};border-color:${CAT_COLORS[t.cat]}30">${CATS[t.cat]}</span>
+            </div>
+          </div>
+          <div class="done-check ${isDone?'checked':''}" id="check_${t.n}" onclick="toggleDone(${t.n},event)" title="Mark as done">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <svg class="chev" id="cchev_${t.n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="card-body" id="cbody_${t.n}">
+          <div class="card-inner">
+            <div class="sec-lbl">What is enough</div>
+            <div class="enough-grid">${enoughHtml}</div>
+          </div>
+          <div class="prompt-section">
+            <div class="prompt-toolbar">
+              <div class="prompt-label">AI tutor prompt — paste into any AI</div>
+              <div class="prompt-actions">
+                <button class="action-btn primary" id="copybtn_${t.n}" onclick="copyPrompt(${t.n},this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy prompt
+                </button>
+              </div>
+            </div>
+            <div class="prompt-box">${promptEscaped}</div>
+          </div>
+        </div>`;
+      container.appendChild(card);
+    });
+  });
+}
+
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (scrolled / total * 100) : 0;
+  document.getElementById('readingBar').style.width = pct + '%';
+});
+
+buildCards();
+updateProgress();
+</script>
+</body>
+</html>
