@@ -17,7 +17,7 @@ to learn it with any AI tutor (Claude, ChatGPT, Gemini).
 
 ## Topics covered
 
-**Python** — Functions, Exception handling, File I/O, OOP, Logging,
+**Python** : Functions, Exception handling, File I/O, OOP, Logging,
 Virtual environments, Secrets management, Modules, Type hints,
 Unit testing, pandas, requests
 
