@@ -1,4 +1,4 @@
-# Python for Data Engineering — AI Tutor Guide
+# Python for Data Engineering: AI Tutor Guide
 
 A free, open guide for learning Python and SQL for cloud data engineering.
 16 topics. Each one defines exactly what is enough, and gives you a prompt
