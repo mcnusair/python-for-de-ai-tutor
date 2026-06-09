@@ -21,9 +21,9 @@ to learn it with any AI tutor (Claude, ChatGPT, Gemini).
 Virtual environments, Secrets management, Modules, Type hints,
 Unit testing, pandas, requests
 
-**SQL** — DuckDB, Advanced SQL (window functions, regex, CTEs, pivots)
+**SQL** : DuckDB, Advanced SQL (window functions, regex, CTEs, pivots)
 
-**Tools** — Git, Bash & command line
+**Tools** : Git, Bash & command line
 
 ## Who this is for
 
