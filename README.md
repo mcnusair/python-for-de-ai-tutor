@@ -30,6 +30,7 @@ Unit testing, pandas, requests
 Engineers, Junior data engineers and analysts transitioning into DE who want a
 clear, opinionated answer to "what do I actually need to learn in Python and how
 much is enough?" without falling into the tutorial trap and getting stuck forever in Python.
+Some very basic programming knowledge is required. Basic SQL is optional for the DuckDB part.
 
 ## How to use it
 
